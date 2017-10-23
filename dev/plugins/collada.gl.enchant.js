@@ -4,7 +4,7 @@
  * @version v0.4.1
  * @require enchant.js v0.6.3+
  * @require gl.enchant.js v0.3.5+
- * @author Ubiquitous Entertainment Inc.
+ * @author UEI Corporation
  *
  [lang:ja]
  * @description
@@ -1766,6 +1766,7 @@ if (enchant.gl !== undefined) {
             stride: 0,
             offset: 0,
             btype: 34962,
+            usage: 35044,
             Atype: Uint16Array
         };
         bufferProto.WEIGHTS = {
@@ -1775,6 +1776,7 @@ if (enchant.gl !== undefined) {
             stride: 0,
             offset: 0,
             btype: 34962,
+            usage: 35044,
             Atype: Float32Array
         };
         var COLLADA_VERTEX_SHADER_SOURCE = '\n\

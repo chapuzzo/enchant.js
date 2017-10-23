@@ -97,7 +97,7 @@ module.exports = (grunt) ->
  * <%= pkg.name %> v<%= pkg.version %>
  * <%= pkg.homepage %>
  *
- * Copyright Ubiquitous Entertainment Inc.
+ * Copyright UEI Corporation
  * Released under the MIT license.
  */\n\n
 """
@@ -107,14 +107,24 @@ module.exports = (grunt) ->
           files:
             'enchant.min.js': [ 'dev/enchant.js' ]
           options:
-            banner: "/* <%= pkg.name %> v<%= pkg.version %> <%= pkg.homepage %> Copyright (c) Ubiquitous Entertainment Inc. Released Under the MIT license. */\n"
+            banner: "/* <%= pkg.name %> v<%= pkg.version %> <%= pkg.homepage %> Copyright (c) UEI Corporation Released Under the MIT license. */\n"
 
       qunit:
         files: [ 'tests/qunit/*/*.html' ]
 
       mocha:
-        all: 'tests/mocha/*.html'
-        core: 'test/mocha/enchant.js/*.html'
+        all:
+          src: ['tests/mocha/**/*.html']
+          options:
+            log: true
+            reporter: 'Spec'
+            timeout: 10000
+        core:
+          src: ['tests/mocha/enchant.js/*.html']
+          options:
+            log: true
+            reporter: 'Spec'
+            timeout: 10000
 
       exec:
         whatever:
@@ -132,10 +142,11 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-qunit'
+  grunt.loadNpmTasks 'grunt-mocha'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-mocha'
   grunt.loadNpmTasks 'grunt-exec'
   grunt.loadTasks 'tasks/'
 
   # Default task.
-  grunt.registerTask 'default', [ 'jshint:core', 'concat', 'uglify', 'qunit', 'lang:en', 'lang:ja', 'lang:de', 'build' ]
+  grunt.registerTask 'default', [ 'jshint:core', 'concat', 'uglify', 'mocha:all', 'lang:en', 'lang:ja', 'lang:de', 'build' ]

@@ -4,7 +4,7 @@
  * @version 0.3.7
  * @require enchant.js v0.4.5+
  * @require gl-matrix.js 1.3.7+
- * @author Ubiquitous Entertainment Inc.
+ * @author UEI Corporation
  *
  * @description
  [lang:ja]
@@ -1461,12 +1461,12 @@ if (typeof glMatrixArrayType === 'undefined') {
         },
         _bufferData: function() {
             this.bind();
-            gl.bufferData(this.btype, new this.Atype(this._array), gl.STATIC_DRAW);
+            gl.bufferData(this.btype, new this.Atype(this._array), this.usage);
             this.unbind();
         },
         _bufferDataFast: function() {
             this.bind();
-            gl.bufferData(this.btype, this._array, gl.STATIC_DRAW);
+            gl.bufferData(this.btype, this._array, this.usage);
             this.unbind();
         },
         _setToAttrib: function(loc) {
@@ -1495,6 +1495,7 @@ if (typeof glMatrixArrayType === 'undefined') {
         stride: 0,
         offset: 0,
         btype: 34962,
+        usage: 35044,
         Atype: Float32Array
     };
     bufferProto.TEXCOORDS = {
@@ -1504,6 +1505,7 @@ if (typeof glMatrixArrayType === 'undefined') {
         stride: 0,
         ptr: 0,
         btype: 34962,
+        usage: 35044,
         Atype: Float32Array
     };
     bufferProto.COLORS = {
@@ -1513,6 +1515,7 @@ if (typeof glMatrixArrayType === 'undefined') {
         stride: 0,
         ptr: 0,
         btype: 34962,
+        usage: 35044,
         Atype: Float32Array
     };
     bufferProto.INDICES = {
@@ -1522,6 +1525,7 @@ if (typeof glMatrixArrayType === 'undefined') {
         stride: 0,
         offset: 0,
         btype: 34963,
+        usage: 35044,
         Atype: Uint16Array
     };
 

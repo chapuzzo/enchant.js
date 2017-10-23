@@ -23,6 +23,10 @@ enchant.WebAudioSound = enchant.Class.create(enchant.EventTarget, {
             throw new Error("This browser does not support WebAudio API.");
         }
         enchant.EventTarget.call(this);
+        if (!enchant.WebAudioSound.audioContext) {
+          enchant.WebAudioSound.audioContext = new window.AudioContext();
+          enchant.WebAudioSound.destination = enchant.WebAudioSound.audioContext.destination;
+        }
         this.context = enchant.WebAudioSound.audioContext;
         this.src = this.context.createBufferSource();
         this.buffer = null;
@@ -47,7 +51,7 @@ enchant.WebAudioSound = enchant.Class.create(enchant.EventTarget, {
      */
     play: function(dup) {
         if (this._state === 1 && !dup) {
-            this.src.disconnect(this.connectTarget);
+            this.src.disconnect();
         }
         if (this._state !== 2) {
             this._currentTime = 0;
@@ -158,13 +162,13 @@ enchant.WebAudioSound = enchant.Class.create(enchant.EventTarget, {
     },
     /**
      [lang:ja]
-     * 現在の再生位置 (秒).
+     * ボリューム. 0 (無音) ～ 1 (フルボリューム).
      [/lang]
      [lang:en]
-     * Current playback position (seconds).
+     * Volume. 0 (muted) ～ 1 (full volume).
      [/lang]
      [lang:de]
-     * Aktuelle Wiedergabeposition (seconds).
+     * Lautstärke. 0 (stumm) ～ 1 (volle Lautstärke).
      [/lang]
      * @type Number
      */
@@ -182,13 +186,13 @@ enchant.WebAudioSound = enchant.Class.create(enchant.EventTarget, {
     },
     /**
      [lang:ja]
-     * ボリューム. 0 (無音) ～ 1 (フルボリューム).
+     * 現在の再生位置 (秒).
      [/lang]
      [lang:en]
-     * Volume. 0 (muted) ～ 1 (full volume).
+     * Current playback position (seconds).
      [/lang]
      [lang:de]
-     * Lautstärke. 0 (stumm) ～ 1 (volle Lautstärke).
+     * Aktuelle Wiedergabeposition (seconds).
      [/lang]
      * @type Number
      */
@@ -262,8 +266,3 @@ enchant.WebAudioSound.load = function(src, type, callback, onerror) {
     }
     return sound;
 };
-
-if (window.AudioContext) {
-    enchant.WebAudioSound.audioContext = new window.AudioContext();
-    enchant.WebAudioSound.destination = enchant.WebAudioSound.audioContext.destination;
-}
